@@ -1,0 +1,5 @@
+BACKUP DATABASE [pinktree]
+TO pinktree
+WITH NAME = 'pinktree', DESCRIPTION = 'DEV',
+COMPRESSION, FORMAT, CHECKSUM
+;

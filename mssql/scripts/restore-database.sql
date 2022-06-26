@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS [pinktree]
+;
+
+CREATE DATABASE [pinktree]
+;
+
+ALTER DATABASE [pinktree] SET RECOVERY SIMPLE
+;
+
+RESTORE DATABASE [pinktree]
+FROM pinktree
+WITH RECOVERY, REPLACE, FILE = 1
+;

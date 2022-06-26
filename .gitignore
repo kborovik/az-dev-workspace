@@ -1,0 +1,14 @@
+secrets/*.txt
+
+mssql/backup/*
+mssql/data/*
+mssql/log/*
+mssql/secrets/*
+
+!mssql/backup/*.md
+!mssql/data/*.md
+!mssql/log/*.md
+!mssql/secrets/*.md
+
+**/.terraform
+**/.terraform.lock.hcl

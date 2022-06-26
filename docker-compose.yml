@@ -1,0 +1,78 @@
+services:
+
+  memcached:
+    image: memcached:1.6
+    pull_policy: missing
+    ports:
+      - mode: host
+        host_ip: 127.0.0.1
+        target: 11211
+        published: 11211
+        protocol: tcp
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    pull_policy: missing
+    ports:
+      - mode: host
+        host_ip: 0.0.0.0
+        target: 1433
+        published: 1433
+        protocol: tcp
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${mssql_pass}
+    tmpfs:
+      - /tmp
+    working_dir: /var/opt/mssql
+    volumes:
+      - type: bind
+        source: mssql/data
+        target: /var/opt/mssql/data
+      - type: bind
+        source: mssql/backup
+        target: /var/opt/mssql/backup
+      - type: bind
+        source: mssql/log
+        target: /var/opt/mssql/log
+      - type: bind
+        source: mssql/secrets
+        target: /var/opt/mssql/secrets
+      - type: bind
+        source: mssql/scripts
+        target: /var/opt/mssql/scripts
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.debug
+    ports:
+      - mode: ingress
+        target: 80
+        published: 8000
+        protocol: tcp
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: app
+        target: /var/www/html
+        bind:
+          create_host_path: true
+    environment:
+      - DBSERVERNAME=mssql
+      - DBPORT=1433
+      - DBNAME=pinktree
+      - DBUSER=sa
+      - DBPASS=${mssql_pass}
+      - MEMSERVERNAME=memcached
+      - MEMPORT=11211
+    depends_on:
+      memcached:
+        condition: service_started
+      mssql:
+        condition: service_started
+
+networks:
+  default:
+    name: pinktree

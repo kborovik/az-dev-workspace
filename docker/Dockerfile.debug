@@ -1,0 +1,17 @@
+FROM php:7.4-apache
+
+ENV ACCEPT_EULA=Y
+
+RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' > ${HOME}/.bashrc
+RUN echo 'alias ls="ls --color=auto -F"; alias ll="ls -lh"; alias la="ls -la"' >> ${HOME}/.bashrc
+
+RUN apt update && apt install -y gpg unixodbc-dev libmemcached-dev zlib1g-dev 
+
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - &&\
+  curl -sSL https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+RUN apt update && apt install -y msodbcsql18 mssql-tools18
+
+RUN pecl install sqlsrv pdo_sqlsrv memcached && docker-php-ext-enable sqlsrv pdo_sqlsrv memcached
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
