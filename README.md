@@ -2,7 +2,11 @@
 
 The project solves the problem "It works on my workstation" by creating identical development environments in Azure cloud VMs for all developers working on the application.
 
-The development environment is 95% identical (minus debug) to Staging and Production environments if deployed in VMs and 90% identical if deployed in Kubernetes cluster.
+The Development environment is 95% matching Staging and Production environments if deployed in VMs and 90% in the Kubernetes cluster.
+
+[Visual Studio Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh) extension allows open a remote source code folder on any remote virtual machine with a running SSH server and take full advantage of VS Code's feature set.
+
+![Visual Studio Code Remote SSH](https://lab5.ca/assets/vscode-ssh.png)
 
 ## How to access PinkTree development workspace
 
@@ -131,7 +135,37 @@ make
 ```
 
 ```
-add output here
+#######################################################################
+#
+# initialize project                 : make init
+# remove all data                    : make clean
+# start local Docker Compose DEV env : make start
+# stop local Docker Compose DEV env  : make stop
+# view DEV env status                : make status
+# view DEV env logs                  : make logs
+# PHP container shell                : make shell-php
+# MSSQL container shell              : make shell-mssql
+# view Docker Compose config         : make config
+# MSSQL DB backup to local disk      : make backup-local
+# MSSQL DB backup to Azure blob      : make backup-azure
+# MSSQL DB restore to local disk     : make restore-local
+# MSSQL DB restore to Azure blob     : make restore-azure
+#
+#######################################################################
+#
+# - APP_ENV:             : kborovik
+# - master_key_file:     : /home/kborovik/.secrets/pinktree/kborovik
+# - secrets_enc:         : /home/kborovik/github/az-dev-workspace/secrets/kborovik.enc
+# - ARM_TENANT_ID:       : <arm-tenant-id>
+# - ARM_SUBSCRIPTION_ID: : <arm-subscription-id>
+# - AZURE_STORAGE_KEY:   : <azure-storage-key>
+# - endpoint_dns:        : http://pinktree-kborovik.pinktree.az
+# - endpoint_ip:         : 10.128.0.5
+# - mssql_user:          : sa
+# - mssql_pass:          : <mssql-password>
+#
+#######################################################################
+
 ```
 
 # How to add secrets
@@ -178,10 +212,6 @@ git add secrets/kborovik.enc && git commit -m "update secrets"
 
 ```
 make
-```
-
-```
-add output
 ```
 
 # How to use PinkTree App development workspace
