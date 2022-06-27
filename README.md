@@ -1,6 +1,6 @@
 # About
 
-The project solves the problem "It works on my workstation" by creating identical development environments in Azure cloud VMs for all developers working on the application.
+The project solves the problem "It works on my workstation" by creating identical development environments in Azure cloud VMs for all developers working on the application. The idea is very similar to [Github Codespaces](https://github.com/features/codespaces) and allows access to application dependencies (database, file shares) unavailable over the Internet.
 
 The Development environment is 95% matching Staging and Production environments if deployed in VMs and 90% in the Kubernetes cluster.
 
