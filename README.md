@@ -6,7 +6,7 @@ The Development environment is 95% matching Staging and Production environments 
 
 [Visual Studio Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh) extension allows open a remote source code folder on any remote virtual machine with a running SSH server and take full advantage of VS Code's feature set.
 
-![Visual Studio Code Remote SSH](https://lab5.ca/assets/vscode-ssh.png)
+![Visual Studio Code Remote SSH](https://lab5.ca/vscode-ssh.png)
 
 ## How to access PinkTree development workspace
 
